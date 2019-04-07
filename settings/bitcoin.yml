@@ -6,17 +6,14 @@ services:
     hostname: bitcoind
     restart: on-failure
     image: monerobox/bitcoind:latest
-    mem_limit: 750m
-    memswap_limit: -1
     cpus: 3
     cpuset: "1-3"
     volumes:
       - data_bitcoin:/data/bitcoin
       - settings:/settings
-    ports:
-      - "8080:8080"
     networks:
-      - monerobox
+      monerobox:
+        ipv4_address: 172.20.1.30
 
 networks:
   monerobox:

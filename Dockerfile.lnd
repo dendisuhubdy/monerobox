@@ -1,0 +1,20 @@
+# specify the base image
+FROM arm64v8/ubuntu:18.04
+
+COPY qemu-aarch64-static /usr/bin
+
+# install tools
+RUN apt-get update \
+  && apt-get install -y wget jq
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy entrypoint file
+COPY lnd_entrypoint.sh ./
+
+# Download and uncompress lnd
+RUN wget -q https://github.com/lightningnetwork/lnd/releases/download/v0.5.2-beta/lnd-linux-arm64-v0.5.2-beta.tar.gz -O - | tar zx
+
+ENTRYPOINT ["/usr/src/app/lnd_entrypoint.sh"]
+

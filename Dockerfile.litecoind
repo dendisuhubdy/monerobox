@@ -1,0 +1,21 @@
+# specify the base image
+FROM arm64v8/ubuntu:18.04
+
+COPY qemu-aarch64-static /usr/bin
+
+# install tools
+RUN apt-get update \
+  && apt-get install -y wget jq
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy entrypoint file
+COPY litecoind_entrypoint.sh ./
+
+# Download and uncompress litecoin CLI tools
+RUN wget -q https://download.litecoin.org/litecoin-0.16.3/linux/litecoin-0.16.3-aarch64-linux-gnu.tar.gz -O - | tar zx
+
+ENTRYPOINT ["/usr/src/app/litecoind_entrypoint.sh"]
+CMD ["/usr/src/app/litecoin-0.16.3/bin/litecoind", "-conf=/settings/litecoind.conf"]
+

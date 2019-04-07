@@ -1,0 +1,29 @@
+FROM arm64v8/node:10 AS builder
+
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-arm64 /tini
+RUN chmod +x /tini
+
+WORKDIR /RTL
+
+COPY . /RTL
+
+COPY package.json /RTL/package.json
+COPY package-lock.json /RTL/package-lock.json
+
+# Install dependencies
+RUN npm install
+
+COPY . /RTL
+
+FROM arm64v8/node:10
+
+WORKDIR /RTL
+
+COPY --from=builder "/RTL" .
+COPY --from=builder "/tini" /sbin/tini
+
+EXPOSE 3000
+
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
+
+CMD ["node", "rtl"]
