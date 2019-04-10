@@ -5,7 +5,7 @@ services:
     container_name: monerod
     hostname: monerod
     restart: on-failure
-    image: monerobox/monerod:latest
+    image: moneroboxdev/monerod:latest
     mem_limit: 750m
     memswap_limit: -1
     cpus: 3

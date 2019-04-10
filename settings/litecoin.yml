@@ -5,10 +5,9 @@ services:
     container_name: litecoind
     hostname: litecoind
     restart: on-failure
-    image: monerobox/litecoind:latest
+    image: moneroboxdev/litecoind:latest
     mem_limit: 1000m
     memswap_limit: 1500m
-    oom_kill_disable: true
     cpus: 3
     cpuset: "1-3"
     volumes:
@@ -22,7 +21,7 @@ services:
     container_name: lnd_ltc
     hostname: lnd_ltc
     restart: on-failure
-    image: monerobox/lnd:latest
+    image: moneroboxdev/lnd:latest
     mem_limit: 256m
     memswap_limit: 512m
     oom_kill_disable: true
@@ -42,7 +41,7 @@ services:
     container_name: rtl_ltc
     hostname: rtl_ltc
     restart: on-failure
-    image: monerobox/rtl:latest
+    image: moneroboxdev/rtl:latest
     mem_limit: 128m
     memswap_limit: 256m
     oom_kill_disable: true
@@ -55,9 +54,7 @@ services:
       monerobox:
         ipv4_address: 172.20.1.22
     ports:
-      - "3000:3000"
       - "4000:4000"
-      - "5000:5000"
     depends_on:
       - litecoind
       - lnd_ltc

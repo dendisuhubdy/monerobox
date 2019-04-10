@@ -5,7 +5,9 @@ services:
     container_name: bitcoind
     hostname: bitcoind
     restart: on-failure
-    image: monerobox/bitcoind:latest
+    image: moneroboxdev/bitcoind:latest
+    mem_limit: 1000m
+    memswap_limit: 1500m
     cpus: 3
     cpuset: "1-3"
     volumes:
@@ -15,12 +17,58 @@ services:
       monerobox:
         ipv4_address: 172.20.1.30
 
+  lnd_btc:
+    container_name: lnd_btc
+    hostname: lnd_btc
+    restart: on-failure
+    image: moneroboxdev/lnd:latest
+    mem_limit: 256m
+    memswap_limit: 512m
+    oom_kill_disable: true
+    cpus: 3
+    cpuset: "1-3"
+    volumes:
+      - data_lnd_btc:/data/lnd_btc
+      - settings:/settings
+    networks:
+      monerobox:
+        ipv4_address: 172.20.1.31
+    entrypoint: /usr/src/app/lnd_entrypoint.sh bitcoin
+    depends_on:
+      - bitcoind
+
+  rtl_btc:
+    container_name: rtl_btc
+    hostname: rtl_btc
+    restart: on-failure
+    image: moneroboxdev/rtl:latest
+    mem_limit: 128m
+    memswap_limit: 256m
+    oom_kill_disable: true
+    cpus: 3
+    cpuset: "1-3"
+    volumes:
+      - data_lnd_btc:/data/lnd_btc
+      - settings:/settings
+    networks:
+      monerobox:
+        ipv4_address: 172.20.1.32
+    ports:
+      - "3000:3000"
+    depends_on:
+      - bitcoind
+      - lnd_btc
+    environment:
+      - RTL_CONFIG_PATH=/settings/rtl_btc/RTL.conf
+
 networks:
   monerobox:
     external: true
 
 volumes:
   data_bitcoin:
+    external: true
+  data_lnd_btc:
     external: true
   settings:
     external: true

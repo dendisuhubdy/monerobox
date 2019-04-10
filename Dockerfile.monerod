@@ -1,7 +1,7 @@
 # specify the base image for builder
 FROM arm64v8/ubuntu:18.04 as builder
 
-COPY qemu-aarch64-static /usr/bin
+#COPY qemu-aarch64-static /usr/bin
 
 # install tools and deps for compilation
 RUN apt-get update \
@@ -17,14 +17,14 @@ WORKDIR /usr/src
 
 # compile binaries
 RUN git clone --recursive https://github.com/Jasonhcwong/monero-monerobox.git
-RUN cd monero-monerobox && git checkout v0.14.0.0-monerobox
-RUN mkdir -p /usr/src/monero-monerobox/build && cd /usr/src/monero-monerobox/build && cmake -D BUILD_TESTS=OFF -D ARCH="armv8-a" -D STATIC=ON -D BUILD_64=ON -D CMAKE_BUILD_TYPE=release -D BUILD_TAG="linux-armv8" .. && make -j 4 daemon
+RUN cd monero-monerobox && git checkout v0.14.0.2-monerobox
+RUN mkdir -p /usr/src/monero-monerobox/build && cd /usr/src/monero-monerobox/build && cmake -D BUILD_TESTS=OFF -D ARCH="armv8-a" -D STATIC=ON -D BUILD_64=ON -D CMAKE_BUILD_TYPE=release -D BUILD_TAG="linux-armv8" .. && make -j 2 daemon
 
 
 # specify the base image for monerod
 FROM arm64v8/ubuntu:18.04
 
-COPY qemu-aarch64-static /usr/bin
+#COPY qemu-aarch64-static /usr/bin
 
 # install tools
 RUN apt-get update \

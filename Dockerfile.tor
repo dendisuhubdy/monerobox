@@ -1,7 +1,7 @@
 # specify the base image
 FROM arm64v8/ubuntu:18.04
 
-COPY qemu-aarch64-static /usr/bin
+#COPY qemu-aarch64-static /usr/bin
 
 # install tools
 RUN apt-get update \

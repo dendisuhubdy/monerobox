@@ -5,14 +5,19 @@
   "tor": {
     "enabled": true
   },
+  "manager": {
+    "enabled": true
+  },
   "monero": {
     "tor": false,
     "enabled": true
   },
   "litecoin": {
+    "tor": false,
     "enabled": false
   },
   "bitcoin": {
+    "tor": false,
     "enabled": false
   }
 }
