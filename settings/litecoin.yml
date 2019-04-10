@@ -33,6 +33,8 @@ services:
     networks:
       monerobox:
         ipv4_address: 172.20.1.21
+    ports:
+      - "19735:9735"
     entrypoint: /usr/src/app/lnd_entrypoint.sh litecoin
     depends_on:
       - litecoind

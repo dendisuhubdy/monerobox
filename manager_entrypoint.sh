@@ -23,27 +23,46 @@ function update_yml_and_config() {
   # copy config file according to RAM size of the board, only if it does not exist
   # Monero related service for every model
   if [ ! -f "/settings/monerod.conf" ]; then
-    echo "copy monero related config file"
+    cp settings/monerod.conf /settings
   fi
   
   # Litecoin related service for models with 2GB and 4GB RAM
   if [ "$memTotal" -gt "$memLimit_1gb" ]; then
     if [ ! -f "/settings/litecoind.conf" ]; then
-      echo "copy litecoin related config file"
+      cp settings/litecoind.conf /settings
+    fi
+    if [ ! -f "/settings/lnd_ltc.conf" ]; then
+      cp settings/lnd_ltc.conf /settings
+    fi
+    if [ ! -d "/settings/rtl_ltc" ]; then
+      mkdir /settings/rtl_ltc
+      cp settings/rtl_ltc.conf /settings/rtl_ltc/RTL.conf
     fi
   fi
   
   # Bitcoin related service for models 4GB RAM
   if [ "$memTotal" -gt "$memLimit_2gb" ]; then
     if [ ! -f "/settings/bitcoind.conf" ]; then
-      echo "copy bitcoin related config file"
+      cp settings/bitcoind.conf /settings
+    fi
+    if [ ! -f "/settings/lnd_btc.conf" ]; then
+      cp settings/lnd_btc.conf /settings
+    fi
+    if [ ! -d "/settings/rtl_btc" ]; then
+      mkdir /settings/rtl_btc
+      cp settings/rtl_btc.conf /settings/rtl_btc/RTL.conf
     fi
   fi
 }
 
 function extra_docker_commands() {
-  # extra commands such as create volume
-  echo "extra docker commands"
+  # create volumes if they don't exist
+  docker volume create data_tor
+  docker volume create data_monero
+  docker volume create data_litecoin
+  docker volume create data_bitcoin
+  docker volume create data_lnd_ltc
+  docker volume create data_lnd_btc
 }
 
 function update_docker_images() {
@@ -56,7 +75,7 @@ function update_docker_images() {
   enabled=$(jq '.litecoin.enabled' /settings/service.json)
   if [ "$enabled" = "true" ]; then
     /usr/local/bin/docker-compose -f /settings/litecoin.yml pull
-    /usr/local/bin/docker-compose -f /settings/monero.yml up -d
+    /usr/local/bin/docker-compose -f /settings/litecoin.yml up -d
   fi
   enabled=$(jq '.bitcoin.enabled' /settings/service.json)
   if [ "$enabled" = "true" ]; then

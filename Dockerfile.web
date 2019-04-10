@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 
 # checkout git source 
 RUN git clone https://github.com/Jasonhcwong/RPi-Monitor-Monerobox.git
-RUN mkdir source && cd RPi-Monitor-Monerobox && git checkout container
+RUN mkdir source && cd RPi-Monitor-Monerobox && git checkout btc_ltc
 
 # Copy executable file
 RUN mv /usr/src/app/RPi-Monitor-Monerobox/src/usr/bin/* /usr/src/app/source/
