@@ -20,6 +20,22 @@ services:
       monerobox:
         ipv4_address: 172.20.1.10
 
+  xmr_lws:
+    container_name: xmr_lws
+    hostname: xmr_lws
+    restart: on-failure
+    image: moneroboxdev/xmr_lws:latest
+    mem_limit: 512m
+    memswap_limit: -1
+    cpus: 3
+    cpuset: "1-3"
+    volumes:
+      - data_monero:/data/monero
+      - settings:/settings
+    networks:
+      monerobox:
+        ipv4_address: 172.20.1.11
+
 networks:
   monerobox:
     external: true

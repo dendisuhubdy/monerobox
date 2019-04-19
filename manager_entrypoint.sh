@@ -19,7 +19,23 @@ function update_yml_and_config() {
     echo "service json already exist."
     # add data to service json
   fi
-  
+  # copy tor config file only if it does not exist
+  if [ ! -f "/settings/tor.conf" ]; then
+    cp settings/tor.conf /settings/
+  else
+    echo "tor config already exist."
+    # add data to tor config
+  fi
+  # copy stunnel config file only if it does not exist
+  if [ ! -f "/settings/stunnel.conf" ]; then
+    cp settings/stunnel.conf /settings/
+  else
+    echo "stunnel config already exist."
+    # add data to stunnel config
+  fi
+
+
+
   # copy config file according to RAM size of the board, only if it does not exist
   # Monero related service for every model
   if [ ! -f "/settings/monerod.conf" ]; then

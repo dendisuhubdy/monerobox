@@ -33,6 +33,7 @@ services:
     cpuset: "0"
     oom_kill_disable: true
     volumes:
+      - settings:/settings
       - data_tor:/data/tor
     networks:
       monerobox:
@@ -64,6 +65,24 @@ services:
     networks:
       monerobox:
         ipv4_address: 172.20.1.4
+
+  stunnel:
+    container_name: stunnel
+    hostname: stunnel
+    restart: always
+    image: moneroboxdev/stunnel:latest
+    mem_limit: 128m
+    memswap_limit: -1
+    cpus: 1
+    cpuset: "0"
+    oom_kill_disable: true
+    volumes:
+      - settings:/settings
+    ports:
+      - "8080:8080"
+    networks:
+      monerobox:
+        ipv4_address: 172.20.1.5
 
 volumes:
   settings:

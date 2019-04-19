@@ -1,0 +1,12 @@
+# specify the base image
+FROM arm64v8/ubuntu:18.04
+
+# install tools
+RUN apt-get update \
+  && apt-get install -y stunnel4
+
+# Create app directory
+WORKDIR /usr/src/app
+
+ENTRYPOINT ["/usr/bin/stunnel4", "/settings/stunnel.conf"]
+

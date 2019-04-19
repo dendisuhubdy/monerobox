@@ -22,8 +22,8 @@ services:
     hostname: lnd_btc
     restart: on-failure
     image: moneroboxdev/lnd:latest
-    mem_limit: 256m
-    memswap_limit: 512m
+    mem_limit: 500m
+    memswap_limit: 700m
     oom_kill_disable: true
     cpus: 3
     cpuset: "1-3"
