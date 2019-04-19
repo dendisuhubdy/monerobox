@@ -3,7 +3,7 @@ FROM arm64v8/ubuntu:18.04
 
 # install tools
 RUN apt-get update \
-  && apt-get install -y perl librrds-perl libhttp-daemon-perl libjson-perl libipc-sharelite-perl libfile-which-perl libsnmp-extension-passpersist-perl systemd jq curl libltdl7 python-pip libffi-dev
+  && apt-get install -y perl librrds-perl libhttp-daemon-perl libjson-perl libipc-sharelite-perl libfile-which-perl libsnmp-extension-passpersist-perl systemd jq curl libltdl7 python-pip libffi-dev git
 
 # Create app directory
 WORKDIR /usr/src/app
