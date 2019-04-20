@@ -34,7 +34,6 @@ services:
     oom_kill_disable: true
     volumes:
       - settings:/settings
-      - data_tor:/data/tor
     networks:
       monerobox:
         ipv4_address: 172.20.1.3
@@ -55,7 +54,6 @@ services:
       - /run/docker.sock:/run/docker.sock
       - /usr//bin/docker:/usr/bin/docker
       - settings:/settings
-      - data_tor:/data/tor
       - data_monero:/data/monero
     environment:
       - HOST_HOSTNAME
@@ -86,8 +84,6 @@ services:
 
 volumes:
   settings:
-    external: true
-  data_tor:
     external: true
   data_monero:
     external: true
