@@ -23,5 +23,5 @@ RUN mkdir -p /usr/src/app/log
 # remove git repo
 RUN rm -rf /usr/src/app/RPi-Monitor-Monerobox
 
-ENTRYPOINT ["/usr/src/app/rpimonitord", "-c", "/usr/src/app/etc/rpimonitor/daemon.conf",  "-c", "/usr/src/app/etc/rpimonitor/template/monerobox.conf"]
+ENTRYPOINT ["/usr/src/app/rpimonitord", "-c", "/usr/src/app/etc/rpimonitor/daemon.conf",  "-c", "/usr/src/app/etc/rpimonitor/template/system.conf"]
 
