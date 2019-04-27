@@ -14,7 +14,8 @@ WORKDIR /usr/src/app
 COPY lnd_entrypoint.sh ./
 
 # Download and uncompress lnd
-RUN wget -q https://github.com/lightningnetwork/lnd/releases/download/v0.5.2-beta/lnd-linux-arm64-v0.5.2-beta.tar.gz -O - | tar zx
+RUN wget -q https://github.com/lightningnetwork/lnd/releases/download/v0.6-beta/lnd-linux-arm64-v0.6-beta.tar.gz -O - | tar zx
+RUN mv /usr/src/app/lnd-linux-arm64-v0.6-beta/* .
 
 ENTRYPOINT ["/usr/src/app/lnd_entrypoint.sh"]
 

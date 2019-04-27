@@ -29,4 +29,4 @@ else
   echo "lnd will NOT use tor."
 fi
 
-exec /usr/src/app/lnd-linux-arm64-v0.5.2-beta/lnd $configFile $proxy
+exec /usr/src/app/lnd $configFile $proxy
