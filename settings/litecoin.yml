@@ -16,6 +16,9 @@ services:
     networks:
       monerobox:
         ipv4_address: 172.20.1.20
+    ports:
+      - "9332:9332"
+      - "9333:9333"
 
   lnd_ltc:
     container_name: lnd_ltc
@@ -34,7 +37,9 @@ services:
       monerobox:
         ipv4_address: 172.20.1.21
     ports:
+      - "18080:8080"
       - "19735:9735"
+      - "20009:10009"
     entrypoint: /usr/src/app/lnd_entrypoint.sh litecoin
     depends_on:
       - litecoind

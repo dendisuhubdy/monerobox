@@ -16,6 +16,8 @@ services:
     networks:
       monerobox:
         ipv4_address: 172.20.1.30
+    ports:
+      - "8333:8333"
 
   lnd_btc:
     container_name: lnd_btc
@@ -34,7 +36,9 @@ services:
       monerobox:
         ipv4_address: 172.20.1.31
     ports:
+      - "8080:8080"
       - "9735:9735"
+      - "10009:10009"
     entrypoint: /usr/src/app/lnd_entrypoint.sh bitcoin
     depends_on:
       - bitcoind
