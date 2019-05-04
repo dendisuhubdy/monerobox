@@ -4,7 +4,7 @@ services:
   manager:
     container_name: manager
     hostname: manager
-    restart: always
+    restart: on-failure
     image: moneroboxdev/manager:latest
     mem_limit: 128m
     memswap_limit: -1
