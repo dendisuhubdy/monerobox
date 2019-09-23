@@ -14,8 +14,8 @@ WORKDIR /usr/src/app
 COPY bitcoind_entrypoint.sh ./
 
 # Download and uncompress bitcoin CLI tools
-RUN wget -q https://bitcoin.org/bin/bitcoin-core-0.17.1/bitcoin-0.17.1-aarch64-linux-gnu.tar.gz -O - | tar zx
+RUN wget -q https://bitcoin.org/bin/bitcoin-core-0.18.1/bitcoin-0.18.1-aarch64-linux-gnu.tar.gz -O - | tar zx
 
 ENTRYPOINT ["/usr/src/app/bitcoind_entrypoint.sh"]
-CMD ["/usr/src/app/bitcoin-0.17.1/bin/bitcoind", "-conf=/settings/bitcoind.conf"]
+CMD ["/usr/src/app/bitcoin-0.18.1/bin/bitcoind", "-conf=/settings/bitcoind.conf"]
 
